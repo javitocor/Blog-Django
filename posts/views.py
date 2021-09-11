@@ -1,12 +1,20 @@
 from django.shortcuts import render, redirect
 from .models import Blogger, Post, Tag, PostComment
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from .forms import CustomUserCreationForm
 
 # Create your views here.
 
 def posts(request):
-  return render(request, 'posts/posts.html')
+  posts = Post.objects.all()
+  tags = Tag.objects.all()
+
+  context = {
+    'posts': posts,
+    'tags':tags,
+  }
+  return render(request, 'posts/posts.html', context)
 
 @login_required(login_url='login')
 def postDetail(request, pk):
@@ -41,4 +49,22 @@ def bloggerDelete(request, pk):
   pass
 
 def registerView(request):
-  return render(request, 'posts/signup.html')
+  form  = CustomUserCreationForm()
+
+  if request.method == 'POST':
+    form  = CustomUserCreationForm(request.POST)
+    if form.is_valid():
+      user = form.save(commit=False)
+      user.save()
+      blogger = Blogger.objects.create(user=user)
+
+      user = authenticate(request, username=user.username, password=request.POST['password1'])
+
+      if user is not None:
+        login(request, user)
+        return redirect('posts')
+
+  context = {
+    'form': form,
+  }
+  return render(request, 'posts/signup.html', context)

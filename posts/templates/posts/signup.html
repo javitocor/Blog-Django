@@ -1,1 +1,31 @@
 {% extends 'main.html' %}
+{% block content %}
+
+<style>
+  .login-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+
+<div class="container">
+  <div class="login-wrapper">
+    <h1>Register</h1>
+    <h4>Register to access Todo App</h4>
+    <form method="POST" action="">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group">
+          <label for="exampleInputEmail1">{{field.label}}</label>
+          {{field}}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <p class="mt-1">Already have an account <a href="{% url 'login' %}">Login</a></p>
+    </form>
+  </div>
+</div>
+{% endblock content %}
