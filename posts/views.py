@@ -18,7 +18,14 @@ def posts(request):
 
 @login_required(login_url='login')
 def postDetail(request, pk):
-  pass
+  tags = Tag.objects.all()
+  post = Post.objects.filter(pk=pk)
+
+  context = {
+    'post': post,
+    'tags': tags,
+  }
+  return render(request, 'posts/post_detail.html', context)
 
 @login_required(login_url='login')
 def postCreate(request):
