@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Blogger, Post, Tag, PostComment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, PostForm, PostCommentForm, BloggerForm
 
 # Create your views here.
 
@@ -19,7 +19,7 @@ def posts(request):
 @login_required(login_url='login')
 def postDetail(request, pk):
   tags = Tag.objects.all()
-  post = Post.objects.filter(pk=pk)
+  post = Post.objects.get(pk=pk)
 
   context = {
     'post': post,
@@ -29,31 +29,76 @@ def postDetail(request, pk):
 
 @login_required(login_url='login')
 def postCreate(request):
-  pass
+    form = PostForm()
+
+    if request.method == 'POST':
+      form = PostForm(request.POST)
+      if form.is_valid():
+        form.save()
+      return redirect('posts')
+
+    context = {'form':form}
+    return render(request, 'posts/post_form.html', context)
 
 @login_required(login_url='login')
 def postUpdate(request, pk):
-  pass
+  post = Post.objects.get(pk=pk)
+  form = PostForm(instance=post)
+
+  if request.method == 'POST':
+    form = PostForm(request.POST, instance=post)
+    if form.is_valid():
+      form.save()
+    return redirect('posts')
+
+  context = {'form':form}
+  return render(request, 'posts/post_form.html', context)
 
 @login_required(login_url='login')
 def postDelete(request, pk):
-  pass
+  post = Post.objects.get(pk=pk)
+  if request.method == 'POST':
+		  post.delete()
+		  return redirect('posts')
+  context = {'item':post}
+  return render(request, 'posts/delete.html', context)
 
 @login_required(login_url='login')
 def bloggers(request):
-  pass
+  bloggers = Blogger.objects.all()
+
+  context = {'bloggers':bloggers}
+  return render(request, 'posts/bloggers.html', context)
 
 @login_required(login_url='login')
 def bloggerDetail(request, pk):
-  pass
+  blogger = Blogger.objects.get(pk=pk)
+
+  context = {'blogger':blogger}
+  return render(request, 'posts/blogger_detail.html', context)
 
 @login_required(login_url='login')
 def bloggerUpdate(request, pk):
-  pass
+  blogger = Blogger.objects.get(pk=pk)
+  form = BloggerForm(instance=blogger)
+
+  if request.method == 'POST':
+    form = BloggerForm(request.POST, instance=blogger)
+    if form.is_valid():
+      form.save()
+    return redirect('posts')
+
+  context = {'form':form}
+  return render(request, 'posts/blogger_form.html', context)
 
 @login_required(login_url='login')
 def bloggerDelete(request, pk):
-  pass
+  blogger = Blogger.objects.get(pk=pk)
+  if request.method == 'POST':
+		  blogger.delete()
+		  return redirect('posts')
+  context = {'item':blogger}
+  return render(request, 'posts/delete.html', context)
 
 def registerView(request):
   form  = CustomUserCreationForm()

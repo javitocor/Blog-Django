@@ -10,6 +10,10 @@ class PostForm(forms.ModelForm):
     model = Post
     exclude = ['author']
 
+  widgets = {
+			'tags':forms.CheckboxSelectMultiple(),
+		}
+
 class PostCommentForm(forms.ModelForm):
   class Meta:
     model = PostComment
