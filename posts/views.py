@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def posts(request):
-  pass
+  return render(request, 'posts/posts.html')
 
 @login_required(login_url='login')
 def postDetail(request, pk):
@@ -35,5 +35,9 @@ def bloggerDetail(request, pk):
 def bloggerUpdate(request, pk):
   pass
 
-def registerView(request):
+@login_required(login_url='login')
+def bloggerDelete(request, pk):
   pass
+
+def registerView(request):
+  return render(request, 'posts/signup.html')

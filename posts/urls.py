@@ -11,5 +11,6 @@ urlpatterns = [
     path('bloggers/', views.bloggers , name="bloggers"),
     path('blogger_detail/<int:pk>', views.bloggerDetail, name="blogger-detail"),
     path('blogger/<int:pk>/update', views.bloggerUpdate, name="blogger-update"),
+    path('blogger/<int:pk>/delete', views.bloggerDelete, name="blogger-delete"),
     path('accounts/signup', views.registerView, name='signup'),
 ]
