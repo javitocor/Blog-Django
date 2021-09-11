@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Blogger, Post, Tag, PostComment
 from django.contrib.auth.decorators import login_required
+from .forms import CustomUserCreationForm
 
 # Create your views here.
 
