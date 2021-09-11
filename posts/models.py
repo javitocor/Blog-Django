@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-import datetime
 
-YEAR_CHOICES = [(r,r) for r in range(1984, datetime.date.today().year+1)]
 
 
 class Blogger(models.Model):
@@ -28,6 +26,7 @@ class Tag(models.Model):
       return self.name
 
 class Post(models.Model):
+    author = models.ForeignKey(Blogger, on_delete=models.CASCADE)
     headline = models.CharField(max_length=200)
     sub_headline = models.CharField(max_length=200, null=True, blank=True)
     #thumbnail = models.ImageField(null=True, blank=True, upload_to="images", default="/images/placeholder.png")
