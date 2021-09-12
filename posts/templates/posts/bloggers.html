@@ -41,17 +41,22 @@
 .number3 {
     font-weight: 500
 }
+.things {
+  border-radius: 50% !important;
+  width: 150px !important;
+  height: 150px !important;
+}
 </style>
 <div class="container mt-5 d-flex justify-content-center align-items-center flex-column">
   {% for blogger in bloggers %}
-  <div class="card p-3 ">
+  <div class="card p-3 mb-3">
       <div class="d-flex align-items-centerflex-column">
-          <div class="image"> <img src="{% static 'images/placeholder.png' s%}" class="rounded" width="155"> </div>
+          <div class="image"> <img src="{{blogger.avatar.url}}" class="rounded things" width="155"> </div>
           <div class="ml-3 w-100">
               <h4 class="mb-0 mt-0">{{blogger.user}}</h4> <span>{{blogger.twitter}}</span>
               <div class="p-2 mt-2 bg-primary d-flex justify-content-around rounded text-white stats">
-                  <div class="d-flex flex-column"> <span class="articles">bloggers</span> <span class="number1">{{blogger.post_set.all.count}}</span> </div>
-                  <div class="d-flex flex-column"> <span class="followers">joined</span> <span class="number2">{{blogger.joined}}</span> </div>                  
+                  <div class="d-flex flex-column align-items-center"> <span class="articles">Posts</span> <span class="number1">{{blogger.post_set.all.count}}</span> </div>
+                  <div class="d-flex flex-column"> <span class="followers">Joined</span> <span class="number2">{{blogger.joined}}</span> </div>                  
               </div>
               <div class="button mt-2 d-flex flex-row align-items-center"> <a href="{% url 'blogger-detail' blogger.user.id %}"><button class="btn btn-sm btn-primary w-100 ml-2">View Bio</button></a> </div>
           </div>

@@ -24,28 +24,22 @@
 .image {
   text-align: center;
   width: 200px;
-  /* Container's dimensions */
-  
+  overflow: hidden;  
   height: 200px;
   -webkit-border-radius: 75%;
   -moz-border-radius: 75%;
   box-shadow: 0 0 0 1px #eee;
-  background: url("https://images.unsplash.com/reserve/ysPfhVSzSP2m629CW0mw_selfPortrait.jpg?fit=crop&fm=jpg&h=700&q=80&w=1225") center center no-repeat;
   background-size: cover;
   margin: auto;
   margin-top: 20px;
   margin-bottom: -30px;
   align-content: center;
 }
-
-
-
 .trick {
   display: inline-block;
   vertical-align: middle;
   height: 150px;
 }
-
 .image:hover {
   box-shadow: 0px 5px 20px .9px #3F3F3F;
 }
@@ -56,8 +50,6 @@
   -webkit-transition: 1.6s ease-in-out;
   transition: 1.6s ease-in-out;
 }
-
-
 
 .trick:hover img {
   -webkit-transform: scale(1);
@@ -76,11 +68,6 @@
 #box:hover #overlay {
   opacity: 1;
 }
-
-
-
-
-
 .panel-group{
   width:350px;
   margin:auto;
@@ -101,22 +88,11 @@
   font-size:15px;
   max-width:100%;
 }
-
-
-
-
 #accordion{
   background-color: transparent;
   max-width:100%;
   margin-bottom:75px;
 }
-
-
-
-
-
-
-
 .btn-outline {
   color: inherit;
   transition: all 1.4s;
@@ -138,23 +114,6 @@
   font-weight: 300;
   max-width:100%;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*---------    Contact Form    ------------*/
 
@@ -288,12 +247,17 @@ textarea:hover {
   color: #fff;
   background-color: #ccc;
 }
+.fixi-it{
+  width: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
 </style>
 <div class="box">
   <div id="overlay">
     <div class="image">
       <div class="trick">
-
+        <img class="fixi-it" src="{{blogger.avatar.url}}" />
       </div>
     </div>
     <ul class="text">{{blogger}}</ul>
@@ -361,7 +325,7 @@ textarea:hover {
   {% for post in posts %}
   <div class="col-6">
     <div class="card mb-4">
-        <img class="card-img-top" src="{% static 'images/placeholder.png' %}" alt="..." />
+        <img class="card-img-top" src="{{ post.thumbnail.url }}" alt="..." />
         <div class="card-body">
             <div class="small text-muted">{{post.created}}</div>
             <h2 class="card-title">{{post.headline}}</h2>

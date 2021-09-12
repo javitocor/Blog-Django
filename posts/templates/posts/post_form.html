@@ -22,7 +22,7 @@
 	
 	<h1>Create Post</h1>
   <h4>Help others in Django Blog</h4>
-	<form method="POST" action="">
+	<form method="POST" action="" enctype="multipart/form-data">
 		{% csrf_token %}
 		{{form.media}}
 		{{form.as_p}}

@@ -18,7 +18,7 @@
                   {% endfor %}
                 </header>
               <!-- Preview image figure-->
-              <figure class="mb-4"><img class="img-fluid rounded" src="{% static 'images/placeholder.png' %}" alt="..." /></figure>
+              <figure class="mb-4"><img class="img-fluid rounded" src="{{ post.thumbnail.url }}" alt="..." /></figure>
               <!-- Post content-->
               <section class="mb-5">
                   <p class="fs-5 mb-4">{{post.body}}</p>

@@ -1,8 +1,18 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
+<style>
+  header {
+    background-image: url("https://cdn.pixabay.com/photo/2016/05/24/16/48/mountains-1412683_960_720.png"); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  height: 500px; /* You must set a specified height */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  }
+</style>
 <!-- Page header with logo and tagline-->
-<header class="py-5 bg-light border-bottom mb-4">
+<header class="py-5 mb-4">
   <div class="container">
       <div class="text-center my-5">
           <h1 class="fw-bolder">Welcome to Django Blog!</h1>
@@ -18,7 +28,7 @@
           <!-- Featured blog post-->
           {% for post in posts %}
           <div class="card mb-4" style="width:100%">
-              <img class="card-img-top" src="{% static 'images/placeholder.png' %}" alt="..." />
+              <img class="card-img-top" src="{{ post.thumbnail.url }}" alt="..." />
               <div class="card-body">
                   <div class="small text-muted">{{post.created}}</div>
                   <h2 class="card-title">{{post.headline}}</h2>
