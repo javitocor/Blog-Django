@@ -91,7 +91,7 @@ Run server:
 Access the page by typing in your web browser
 
 ``` bash
-   http://http://127.0.0.1:8000/
+   http://127.0.0.1:8000/
 ```
 
 ## Author
