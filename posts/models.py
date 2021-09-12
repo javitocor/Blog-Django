@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 
@@ -10,7 +12,7 @@ class Blogger(models.Model):
     last_name = models.CharField(max_length=200, blank=True, null=True)
     email = models.EmailField(max_length=200)
     #avatar = models.ImageField(null=True, blank=True, upload_to="images", default="/user.png")
-    bio = models.TextField(null=True, blank=True)
+    bio = RichTextField(null=True, blank=True)
     joined = models.IntegerField(default=datetime.datetime.now().year)
     twitter = models.CharField(max_length=200,null=True, blank=True)
 
@@ -31,7 +33,7 @@ class Post(models.Model):
     headline = models.CharField(max_length=200)
     sub_headline = models.CharField(max_length=200, null=True, blank=True)
     #thumbnail = models.ImageField(null=True, blank=True, upload_to="images", default="/images/placeholder.png")
-    body = models.TextField(null=True, blank=True)
+    body = RichTextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, null=True, blank=True)
 

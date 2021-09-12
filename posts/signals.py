@@ -23,3 +23,4 @@ def update_blogger(sender, instance, created, **kwargs):
 
 post_save.connect(create_blogger, sender=User)
 post_save.connect(update_blogger, sender=User)
+

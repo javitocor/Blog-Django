@@ -23,6 +23,7 @@
 	
 	<form action="" method="POST">
 		{% csrf_token %}
+		{{form.media}}
 		{{form}}
 		<input class="btn btn-primary" type="submit" value="Submit Post">
 		

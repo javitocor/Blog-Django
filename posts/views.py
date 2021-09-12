@@ -23,6 +23,15 @@ def postDetail(request, pk):
   post = Post.objects.get(pk=pk)
   selftags = post.tags.all()
 
+  if request.method == 'POST':
+		  PostComment.objects.create(
+        author=request.user.blogger,
+        post=post,
+        body=request.POST['comment']
+        )
+
+		  return redirect('post-detail', pk=pk)
+
   context = {
     'post': post,
     'tags': tags,
@@ -37,12 +46,11 @@ def postCreate(request):
     if request.method == 'POST':
       form = PostForm(request.POST)
       if form.is_valid():
-        form.save()
-        #obj = form.save(commit=False)
-        #obj.author = Blogger.objects.get(user=request.user)
-        #obj.save()
-        #obj.tags.add(request.POST['tags'])
-      return redirect('posts')
+        obj = form.save(commit=False)
+        obj.author = Blogger.objects.get(user=request.user)
+        obj.save()
+        obj.tags.add(request.POST['tags'])
+      return redirect('post-detail', pk=obj.pk)
 
     context = {'form':form}
     return render(request, 'posts/post_form.html', context)
@@ -56,7 +64,7 @@ def postUpdate(request, pk):
     form = PostForm(request.POST, instance=post)
     if form.is_valid():
       form.save()
-    return redirect('posts')
+    return redirect('post-detail', pk=post.pk)
 
   context = {'form':form}
   return render(request, 'posts/post_form.html', context)
@@ -95,11 +103,11 @@ def bloggerUpdate(request):
       user_form = UserForm(request.POST, instance=user)
       if user_form.is_valid():
         user_form.save()
-        
+
       form = BloggerForm(request.POST, instance=blogger)
       if form.is_valid():
         form.save()
-      return redirect('posts')
+      return redirect('blogger-detail', pk=blogger.pk)
 
   context = {'form':form}
   return render(request, 'posts/blogger_form.html', context)
@@ -110,7 +118,7 @@ def bloggerDelete(request, pk):
   blogger = Blogger.objects.get(pk=pk)
   if request.method == 'POST':
 		  blogger.delete()
-		  return redirect('posts')
+		  return redirect('signup')
   context = {'item':blogger, 'resource': resource}
   return render(request, 'posts/delete.html', context)
 
@@ -122,9 +130,6 @@ def registerView(request):
     if form.is_valid():
       user = form.save(commit=False)
       user.save()
-      #blogger = Blogger.objects.create(user=user)
-      #blogger.first_name = user.username
-      #blogger.save()
 
       user = authenticate(request, username=user.username, password=request.POST['password1'])
 
