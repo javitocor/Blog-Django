@@ -4,11 +4,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from .forms import CustomUserCreationForm, PostForm, PostCommentForm, BloggerForm, UserForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .filters import PostFilter
 
 # Create your views here.
 
 def posts(request):
     posts = Post.objects.order_by('-created')
+    filter = PostFilter(request.GET, queryset=posts)
+    posts = filter.qs
     tags = Tag.objects.all()
 
     page = request.GET.get('page')
@@ -25,6 +28,7 @@ def posts(request):
     context = {
       'posts': posts,
       'tags':tags,
+      'filter': filter,
     }
     return render(request, 'posts/posts.html', context)
 

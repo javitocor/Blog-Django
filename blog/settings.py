@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'ckeditor',
     'ckeditor_uploader',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
