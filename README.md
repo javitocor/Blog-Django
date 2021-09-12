@@ -26,7 +26,7 @@ Things you may want to c<!--
 
 # Django Blog
 
->  A Blog built with Django where bloggers can signup/login, and perform CRUD operations for posts. Bloggers can search per tags or headlines.
+>  A Blog built with Django where bloggers can signup/login, and perform CRUD operations for posts. Bloggers can search per tags or headlines and comment in posts.
 
 Additional description about the project and its features.
 
@@ -62,6 +62,37 @@ To have this app on your pc, you need to:
   ```
     https://github.com/javitocor/Blog-Django.git
   ```
+
+* In the project directory, you can run:
+
+Create virtual enviroment with:
+
+``` bash
+py -m venv project-name
+```
+Install Django with:
+
+``` bash
+   py -m pip install Django
+```
+
+Run migrations:
+
+``` bash
+   py manage.py makemigrations
+   py manage.py migrate
+```
+Run server:
+
+``` bash
+   py manage.py runserver
+```
+Access the page by typing in your web browser
+
+``` bash
+   http://http://127.0.0.1:8000/
+```
+
 
 ## Author
 
