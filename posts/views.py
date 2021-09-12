@@ -3,18 +3,30 @@ from .models import Blogger, Post, Tag, PostComment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from .forms import CustomUserCreationForm, PostForm, PostCommentForm, BloggerForm, UserForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
 def posts(request):
-  posts = Post.objects.order_by('-created')[:4]
-  tags = Tag.objects.all()
+    posts = Post.objects.order_by('-created')
+    tags = Tag.objects.all()
 
-  context = {
-    'posts': posts,
-    'tags':tags,
-  }
-  return render(request, 'posts/posts.html', context)
+    page = request.GET.get('page')
+
+    paginator = Paginator(posts, 5)
+
+    try:
+      posts = paginator.page(page)
+    except PageNotAnInteger:
+      posts = paginator.page(1)
+    except EmptyPage:
+      posts = paginator.page(paginator.num_pages)
+
+    context = {
+      'posts': posts,
+      'tags':tags,
+    }
+    return render(request, 'posts/posts.html', context)
 
 @login_required(login_url='login')
 def postDetail(request, pk):
@@ -71,12 +83,11 @@ def postUpdate(request, pk):
 
 @login_required(login_url='login')
 def postDelete(request, pk):
-  resource = 'post'
   post = Post.objects.get(pk=pk)
   if request.method == 'POST':
 		  post.delete()
 		  return redirect('posts')
-  context = {'item':post, 'resource': resource}
+  context = {'item':post}
   return render(request, 'posts/delete.html', context)
 
 @login_required(login_url='login')
@@ -114,12 +125,11 @@ def bloggerUpdate(request):
 
 @login_required(login_url='login')
 def bloggerDelete(request, pk):
-  resource = 'blogger'
   blogger = Blogger.objects.get(pk=pk)
   if request.method == 'POST':
 		  blogger.delete()
 		  return redirect('signup')
-  context = {'item':blogger, 'resource': resource}
+  context = {'item':blogger}
   return render(request, 'posts/delete.html', context)
 
 def registerView(request):

@@ -368,10 +368,7 @@ textarea:hover {
       <div class="card-footer">
         <small class="text-muted">{{post.author.user}}</small>
         {% if request.user == post.author.user %}
-          <small class="text-muted"><a class="btn btn-primary" href="{% url 'post-update' post.id %}">Edit</a></small>
-          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-            Delete
-          </button>
+          <small class="text-muted"><a class="btn btn-primary" href="{% url 'post-update' post.id %}">Edit</a></small>          
           {% include 'posts/delete.html' %}
         {% endif %}
       </div>
