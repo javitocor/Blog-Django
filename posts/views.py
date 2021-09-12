@@ -44,7 +44,7 @@ def postCreate(request):
     form = PostForm()
 
     if request.method == 'POST':
-      form = PostForm(request.POST)
+      form = PostForm(request.POST, request.FILES)
       if form.is_valid():
         obj = form.save(commit=False)
         obj.author = Blogger.objects.get(user=request.user)
@@ -61,7 +61,7 @@ def postUpdate(request, pk):
   form = PostForm(instance=post)
 
   if request.method == 'POST':
-    form = PostForm(request.POST, instance=post)
+    form = PostForm(request.POST, request.FILES, instance=post)
     if form.is_valid():
       form.save()
     return redirect('post-detail', pk=post.pk)
@@ -104,7 +104,7 @@ def bloggerUpdate(request):
       if user_form.is_valid():
         user_form.save()
 
-      form = BloggerForm(request.POST, instance=blogger)
+      form = BloggerForm(request.POST, request.FILES, instance=blogger,)
       if form.is_valid():
         form.save()
       return redirect('blogger-detail', pk=blogger.pk)
