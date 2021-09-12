@@ -11,7 +11,7 @@ class PostForm(forms.ModelForm):
     exclude = ['author']
 
   widgets = {
-			'tags':forms.CheckboxSelectMultiple(),
+			'tags':forms.CheckboxSelectMultiple,
 		}
 
 class PostCommentForm(forms.ModelForm):
@@ -35,3 +35,8 @@ class CustomUserCreationForm(UserCreationForm):
     self.fields['username'].widget.attrs.update({'class':'form-control', 'placeholder':'Enter username'})
     self.fields['password1'].widget.attrs.update({'class':'form-control', 'placeholder':'Enter password'})
     self.fields['password2'].widget.attrs.update({'class':'form-control', 'placeholder':'Confirm password'})
+
+class UserForm(ModelForm):
+	class Meta:
+		model = User
+		fields = ['first_name', 'last_name', 'email']

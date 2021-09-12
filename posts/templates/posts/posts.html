@@ -1,6 +1,6 @@
 {% extends 'main.html' %}
 {% load static %}
-
+{% block content %}
 <!-- Page header with logo and tagline-->
 <header class="py-5 bg-light border-bottom mb-4">
   <div class="container">
@@ -17,13 +17,13 @@
       <div class="col-lg-8">
           <!-- Featured blog post-->
           {% for post in posts %}
-          <div class="card mb-4">
+          <div class="card mb-4" style="width:100%">
               <img class="card-img-top" src="{% static 'images/placeholder.png' %}" alt="..." />
               <div class="card-body">
                   <div class="small text-muted">{{post.created}}</div>
                   <h2 class="card-title">{{post.headline}}</h2>
                   <p class="card-text">{{post.sub_headline}}</p>
-                  <a class="btn btn-primary" href="#!">Read more →</a>
+                  <a class="btn btn-primary" href="{% url 'post-detail' post.pk %}">Read more →</a>
               </div>
               <div class="card-footer">
                 <small class="text-muted">{{post.blogger.user}}</small>
@@ -55,3 +55,4 @@
   <div class="container"><p class="m-0 text-center text-white">Copyright &copy; JaviCorp 2021</p></div>
 </footer>
 <script src="{% static 'js/scripts.js' %}"></script>
+{% endblock content %}

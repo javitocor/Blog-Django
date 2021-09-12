@@ -1,6 +1,6 @@
 {% extends 'main.html' %}
 {% load static %}
-
+{% block content %}
 <div class="container mt-5">
   <div class="row">
       <div class="col-lg-8">
@@ -11,14 +11,14 @@
                   <!-- Post title-->
                   <h1 class="fw-bolder mb-1">{{post.headline}}</h1>
                   <!-- Post meta content-->
-                  <div class="text-muted fst-italic mb-2">Posted on {{ post.create }} by {{post.blogger.user}}</div>
+                  <div class="text-muted fst-italic mb-2">Posted on {{ post.created }} by <a href="{% url 'blogger-detail' post.author.pk %}">{{post.author.user}}</a></div>
                   <!-- Post categories-->
-                  {% for selftag in post.tags %}
+                  {% for selftag in selftags %}
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{selftag.name}}</a>
                   {% endfor %}
                 </header>
               <!-- Preview image figure-->
-              <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
+              <figure class="mb-4"><img class="img-fluid rounded" src="{% static 'images/placeholder.png' %}" alt="..." /></figure>
               <!-- Post content-->
               <section class="mb-5">
                   <p class="fs-5 mb-4">{{post.body}}</p>
@@ -79,3 +79,4 @@
   <div class="container"><p class="m-0 text-center text-white">Copyright &copy; JaviCorp 2021</p></div>
 </footer>
 <script src="{% static 'js/scripts2.js' %}"></script>
+{% endblock content %}

@@ -1,3 +1,5 @@
+{% block content %}
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -8,16 +10,19 @@
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="">
-          {% csrf_token %}
-      
-          <p>Are you sure you want to delete {{item}}?</p>       
-        </form>
+          <form method="POST" action="/post/{{ post.id }}/delete">
+            {% csrf_token %}
+        
+            <p>Are you sure you want to delete {{item}}?</p>  
+            <button type="submit" class="btn btn-danger">Delete</button>     
+          </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger">Delete</button>
+        
       </div>
     </div>
   </div>
 </div>
+
+{% endblock content %}
