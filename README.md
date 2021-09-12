@@ -69,11 +69,12 @@ Create virtual enviroment with:
 
 ``` bash
 py -m venv project-name
+project-name\Scripts\activate.bat
 ```
-Install Django with:
+Install dependencies in your home folder with:
 
 ``` bash
-   py -m pip install Django
+   pip install -r requirements.txt
 ```
 
 Run migrations:
@@ -92,7 +93,6 @@ Access the page by typing in your web browser
 ``` bash
    http://http://127.0.0.1:8000/
 ```
-
 
 ## Author
 
