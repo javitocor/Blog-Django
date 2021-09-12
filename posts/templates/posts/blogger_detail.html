@@ -108,7 +108,7 @@
 #accordion{
   background-color: transparent;
   max-width:100%;
-  margin-bottom:200px;
+  margin-bottom:75px;
 }
 
 
@@ -353,27 +353,30 @@ textarea:hover {
     {% endif %}
   </div>
 </div>
-<div class="col-lg-12">
-  <!-- Featured blog post-->
-  <h3 class='text-center'>His/her posts</h3>
-  {% for post in posts %}
-  <div class="card mb-4" style="width:100%">
-      <img class="card-img-top" src="{% static 'images/placeholder.png' %}" alt="..." />
-      <div class="card-body">
-          <div class="small text-muted">{{post.created}}</div>
-          <h2 class="card-title">{{post.headline}}</h2>
-          <p class="card-text">{{post.sub_headline}}</p>
-          <a class="btn btn-primary" href="{% url 'post-detail' post.pk %}">Read more →</a>
-      </div>
-      <div class="card-footer">
-        <small class="text-muted">{{post.author.user}}</small>
-        {% if request.user == post.author.user %}
-          <small class="text-muted"><a class="btn btn-primary" href="{% url 'post-update' post.id %}">Edit</a></small>          
-          {% include 'posts/delete.html' %}
-        {% endif %}
-      </div>
-  </div>
-  {% endfor %}  
 </div>
+<div class="row p-0 m-0">
+  <h2 class='text-center mb-3'>My posts</h2>
+  <!-- Featured blog post-->
+  
+  {% for post in posts %}
+  <div class="col-6">
+    <div class="card mb-4">
+        <img class="card-img-top" src="{% static 'images/placeholder.png' %}" alt="..." />
+        <div class="card-body">
+            <div class="small text-muted">{{post.created}}</div>
+            <h2 class="card-title">{{post.headline}}</h2>
+            <p class="card-text">{{post.sub_headline}}</p>
+            <a class="btn btn-primary" href="{% url 'post-detail' post.pk %}">Read more →</a>
+        </div>
+        {% if request.user == post.author.user %}
+          <div class="card-footer">
+            <small class="text-muted">Posted by: {{post.author.user}}</small>
+              <small class="text-muted"><a class="btn btn-primary" href="{% url 'post-update' post.id %}">Edit</a></small>          
+              {% include 'posts/delete.html' %}
+          </div>
+        {% endif %}
+    </div>  
+  </div>
+  {% endfor %}
 </div>
 {% endblock content %}

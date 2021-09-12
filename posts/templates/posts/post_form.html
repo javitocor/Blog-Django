@@ -1,6 +1,6 @@
 {% extends 'main.html' %}
 {% load static %}
-
+{{ form.media }}
 {% block content %}
 <style type="text/css">
 	#div_id_tags > div{
@@ -13,21 +13,21 @@
   .login-wrapper{
         display: flex;
         flex-direction: column;
-        height: 80vh;
         align-items: center;
         justify-content: center;
-      }
+  }
 </style>
 <div class="login-wrapper">
 	<a class="btn btn-sm btn-primary" href="{% url 'posts' %}">&laquo Back to Posts</a>
 	
-	<form action="" method="POST" enctype="multipart/form-data">
+	<h1>Create Post</h1>
+  <h4>Help others in Django Blog</h4>
+	<form method="POST" action="">
 		{% csrf_token %}
 		{{form.media}}
-		{{form}}
-		<input class="btn btn-primary" type="submit" value="Submit Post">
-		
-	</form>
+		{{form.as_p}}
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>  
 </div>
 
 {% endblock content %}

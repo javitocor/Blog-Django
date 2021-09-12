@@ -26,7 +26,7 @@
                   <a class="btn btn-primary" href="{% url 'post-detail' post.pk %}">Read more →</a>
               </div>
               <div class="card-footer">
-                <small class="text-muted">{{post.blogger.user}}</small>
+                <small class="">Posted by: {{post.author.user.username}}</small>
               </div>
           </div>
           {% endfor %}

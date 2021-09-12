@@ -14,7 +14,7 @@ class Blogger(models.Model):
     avatar = models.ImageField(null=True, blank=True, upload_to="images", default="/images/placeholder.png")
     bio = RichTextField(null=True, blank=True)
     joined = models.IntegerField(default=datetime.datetime.now().year)
-    twitter = models.CharField(max_length=200,null=True, blank=True)
+    twitter = models.CharField(max_length=200,null=True, blank=True, default='No data available')
 
     def __str__(self):
       name = str(self.first_name)

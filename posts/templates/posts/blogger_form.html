@@ -6,19 +6,19 @@
   .login-wrapper{
         display: flex;
         flex-direction: column;
-        height: 80vh;
         align-items: center;
         justify-content: center;
       }
 </style>
 <div class="login-wrapper">
 	<a class="btn btn-sm btn-primary" href="{% url 'posts' %}">&laquo Back to Posts</a>
-	
+	<h1>Update your info</h1>
+  <h4>Kindly fill up all fields</h4>
 	<form action="" method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
     {{form.media}}
-		{{form}}
-		<input class="btn btn-primary" type="submit" value="Submit Post">
+		{{form.as_p}}
+		<input class="btn btn-primary mb-2" type="submit" value="Submit Post">
 		
 	</form>
 </div>

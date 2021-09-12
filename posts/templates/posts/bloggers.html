@@ -4,7 +4,7 @@
 {% block content %}
 <style>
     .card {
-    width: 400px;
+    width: 500px;
     border: none;
     border-radius: 10px;
     background-color: #fff
@@ -42,7 +42,7 @@
     font-weight: 500
 }
 </style>
-<div class="container mt-5 d-flex justify-content-center flex-column">
+<div class="container mt-5 d-flex justify-content-center align-items-center flex-column">
   {% for blogger in bloggers %}
   <div class="card p-3 ">
       <div class="d-flex align-items-centerflex-column">
@@ -50,7 +50,7 @@
           <div class="ml-3 w-100">
               <h4 class="mb-0 mt-0">{{blogger.user}}</h4> <span>{{blogger.twitter}}</span>
               <div class="p-2 mt-2 bg-primary d-flex justify-content-around rounded text-white stats">
-                  <div class="d-flex flex-column"> <span class="articles">Posts</span> <span class="number1">{{blogger.post_set.all.count}}</span> </div>
+                  <div class="d-flex flex-column"> <span class="articles">bloggers</span> <span class="number1">{{blogger.post_set.all.count}}</span> </div>
                   <div class="d-flex flex-column"> <span class="followers">joined</span> <span class="number2">{{blogger.joined}}</span> </div>                  
               </div>
               <div class="button mt-2 d-flex flex-row align-items-center"> <a href="{% url 'blogger-detail' blogger.user.id %}"><button class="btn btn-sm btn-primary w-100 ml-2">View Bio</button></a> </div>
@@ -58,5 +58,34 @@
       </div>
   </div>
   {% endfor %}
+  <nav aria-label="Pagination">
+    <hr class="my-0" />
+    {% if bloggers.has_other_pages %}
+      <ul class="pagination justify-content-center my-4">
+        {% if bloggers.has_previous %}
+        <li class="page-item"><a data-page="{{bloggers.previous_page_number}}" href="?page={{bloggers.previous_page_number}}" class="page-link">&laquo</a></li>
+
+        <li class="page-item"><a data-page="1" href="?page=1" class="page-link">First</a></li>
+      {% endif %}
+
+
+      {% for i in bloggers.paginator.page_range %}
+        {% if bloggers.number == i %}
+          <li class="page-item"><a class="active page-link">{{i}}</a></li>
+        {% else %}
+          <li class="page-item"><a data-page="{{i}}" href="?page={{i}}" class="page-link">{{i}}</a></li>
+        {% endif %}
+        
+      {% endfor %}
+
+
+      {% if bloggers.has_next %}
+        <li class="page-item"><a data-page="{{bloggers.paginator.num_pages}}" href="?page={{bloggers.paginator.num_pages}}" class="page-link">Last</a></li>
+
+        <li class="page-item"><a data-page="{{bloggers.next_page_number}}" href="?page={{bloggers.next_page_number}}" class="page-link">&raquo</a></li>
+      {% endif %}
+      </ul>
+    {% endif %}
+</nav>
 </div>
 {% endblock content %}

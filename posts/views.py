@@ -94,6 +94,17 @@ def postDelete(request, pk):
 def bloggers(request):
   bloggers = Blogger.objects.all()
 
+  page = request.GET.get('page')
+
+  paginator = Paginator(bloggers, 5)
+
+  try:
+    bloggers = paginator.page(page)
+  except PageNotAnInteger:
+    bloggers = paginator.page(1)
+  except EmptyPage:
+    bloggers = paginator.page(paginator.num_pages)
+
   context = {'bloggers':bloggers}
   return render(request, 'posts/bloggers.html', context)
 
